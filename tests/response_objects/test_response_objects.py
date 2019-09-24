@@ -4,7 +4,7 @@ from asociate.response_objects import ResponseFailure, ResponseSuccess
 
 @pytest.fixture
 def response_value():
-    return {'key': ['value1', 'value2']}
+    return {"key": ["value1", "value2"]}
 
 
 def test_response_success_is_true():

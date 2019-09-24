@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 
 from asociate import entities
+from asociate.repository.exceptions import AssociationNotFoundError
 from asociate.repository.models import Association, Base
 
 
@@ -40,4 +41,10 @@ class AssociationPostgresRepo(PostgresRepo):
         session = DBSession()
         query = session.query(Association).filter(Association.code == association_code)
         association = query.first()
+
+        if association is None:
+            raise AssociationNotFoundError(
+                f"Unable to find association with code {association_code}"
+            )
+
         return self._create_association_members_objects_list(association)

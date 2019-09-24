@@ -8,8 +8,6 @@ class AssociationListMembers:
 
     def execute(self, association_code):
         try:
-            return ResponseSuccess(
-                value=self.repo.list_members(association_code)
-            )
+            return ResponseSuccess(value=self.repo.list_members(association_code))
         except Exception as exc:
             return ResponseFailure(exc)

@@ -54,9 +54,11 @@ lint: ## check style with flake8
 	flake8 asociate tests
 
 test: ## run tests quickly with the default Python
+	export ENV_FOR_DYNACONF=testing
 	pytest -m "not dbtest"
 
 test-all: ## run tests on every Python version with tox
+	export ENV_FOR_DYNACONF=testing
 	pytest
 
 coverage: ## check code coverage quickly with the default Python

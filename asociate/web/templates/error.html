@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+<div class="app-main__inner">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="mb-3 card text-white card-body bg-danger">
+        <h5 class="text-white card-title">Something went wrong</h5>
+        {{ message }}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

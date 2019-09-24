@@ -44,6 +44,7 @@ def test_member_full_name():
 
     assert member.full_name == "Arthur Dent"
 
+
 def test_member_repr():
     member = Member(
         first_name="Arthur",
