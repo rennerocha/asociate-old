@@ -27,13 +27,7 @@ def pg_engine(docker_ip, docker_services, docker_setup):
     docker_services.wait_until_responsive(
         timeout=30.0, pause=0.1, check=lambda: pg_is_responsive(docker_ip, docker_setup)
     )
-    conn_str = "postgresql+psycopg2://{}:{}@{}/{}".format(
-        docker_setup["postgres"]["user"],
-        docker_setup["postgres"]["password"],
-        docker_setup["postgres"]["host"],
-        docker_setup["postgres"]["dbname"],
-    )
-    engine = sqlalchemy.create_engine(conn_str)
+    engine = sqlalchemy.create_engine(docker_setup["postgres"]["connection_string"])
     sqlalchemy_utils.create_database(engine.url)
     conn = engine.connect()
     yield engine

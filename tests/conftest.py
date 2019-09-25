@@ -49,12 +49,17 @@ def association_with_members(association, members):
 
 @pytest.fixture(scope="session")
 def docker_setup(docker_ip):
+    dbname = "asociate_db"
+    user = "postgres"
+    password = "asociate_pass"
+
     return {
         "postgres": {
-            "dbname": "asociate_db",
-            "user": "postgres",
-            "password": "asociate_pass",
+            "dbname": dbname,
+            "user": user,
+            "password": password,
             "host": docker_ip,
+            "connection_string": f"postgresql+psycopg2://{user}:{password}@{docker_ip}/{dbname}",
         }
     }
 
