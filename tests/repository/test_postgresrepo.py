@@ -23,6 +23,4 @@ def test_raises_error_when_try_list_association_that_does_not_exists(
         members = repo.list_members("invalid_code")  # noqa
 
     assert exc_info.typename == "AssociationNotFoundError"
-    assert exc_info.value == AssociationNotFoundError(
-        "Unable to find association with code invalid_code"
-    )
+    assert str(exc_info.value) == "Unable to find association with code invalid_code"
