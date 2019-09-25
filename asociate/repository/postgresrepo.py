@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 
-from asociate import entities
+from asociate.entities.member import Member as MemberEntity
 from asociate.repository.exceptions import AssociationNotFoundError
 from asociate.repository.models import Association, Base
 
@@ -24,7 +24,7 @@ class AssociationPostgresRepo(PostgresRepo):
         results = []
         for member in association.members:
             results.append(
-                entities.member.Member.from_dict(
+                MemberEntity.from_dict(
                     {
                         "first_name": member.first_name,
                         "last_name": member.last_name,
