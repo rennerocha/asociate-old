@@ -1,4 +1,5 @@
 from flask import Blueprint, current_app, render_template
+from asociate.dto.association import ListMembersRequestObject
 from asociate.interactors.association import AssociationListMembers
 from asociate.repository.postgresrepo import AssociationPostgresRepo
 
@@ -12,7 +13,8 @@ def association_members(association_code):
     )
     interactor = AssociationListMembers(repo)
 
-    response = interactor.execute(association_code)
+    request = ListMembersRequestObject.from_dict({"association_code": association_code})
+    response = interactor.execute(request)
 
     if not response:
         context = {"message": response.value["message"]}

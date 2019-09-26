@@ -1,3 +1,4 @@
+from asociate.dto.association import ListMembersRequestObject 
 from asociate.interactors.association import AssociationListMembers
 from asociate.repository.exceptions import AssociationNotFoundError
 
@@ -9,7 +10,9 @@ def test_association_list_all_members(mocker, association_with_members):
     repo.list_members.return_value = association_members
 
     uc = AssociationListMembers(repo)
-    response = uc.execute(association_code=association_with_members.code)
+
+    request = ListMembersRequestObject(association_code=association_with_members.code)
+    response = uc.execute(request)
     assert bool(response) is True
 
     repo.list_members.assert_called_with(association_with_members.code)
@@ -22,7 +25,8 @@ def test_list_members_handles_generic_error(mocker):
     repo.list_members.side_effect = Exception("Just an error message")
 
     uc = AssociationListMembers(repo)
-    response = uc.execute(association_code="any_code")
+    request = ListMembersRequestObject(association_code="any_code")
+    response = uc.execute(request)
 
     assert bool(response) is False
     assert response.value == {
@@ -41,7 +45,9 @@ def test_error_when_list_member_of_inexistent_association(mocker):
     )
 
     uc = AssociationListMembers(repo)
-    response = uc.execute(association_code=invalid_association_code)
+
+    request = ListMembersRequestObject(association_code=invalid_association_code)
+    response = uc.execute(request)
 
     repo.list_members.assert_called_with(invalid_association_code)
     assert bool(response) is False
