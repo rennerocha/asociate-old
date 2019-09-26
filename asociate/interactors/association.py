@@ -1,4 +1,4 @@
-from asociate.response_objects import ResponseFailure, ResponseSuccess
+from asociate.dto.response import ResponseFailure, ResponseSuccess
 from asociate.repository.exceptions import AssociationNotFoundError
 
 
