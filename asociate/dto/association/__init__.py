@@ -20,3 +20,9 @@ class ListMembersRequestObject:
             return request
 
         return cls(**adict)
+
+
+class AddMemberRequestObject:
+    def __init__(self, association_code, member):
+        self.association_code = association_code
+        self.member = member

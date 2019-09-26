@@ -24,3 +24,13 @@ def test_raises_error_when_try_list_association_that_does_not_exists(
 
     assert exc_info.typename == "AssociationNotFoundError"
     assert str(exc_info.value) == "Unable to find association with code invalid_code"
+
+
+@pytest.mark.dbtest
+def test_repository_add_valid_member(
+    docker_setup, pg_session, association, member
+):
+    repo = AssociationPostgresRepo(docker_setup["postgres"]["connection_string"])
+    repo.add_member(association.code, member.to_dict())
+
+    assert member in repo.list_members(association.code)

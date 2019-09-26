@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 from asociate.entities.member import Member as MemberEntity
 from asociate.repository.exceptions import AssociationNotFoundError
-from asociate.repository.models import Association, Base
+from asociate.repository.models import Association, Base, Member
 from flask import current_app
 
 
@@ -51,3 +51,23 @@ class AssociationPostgresRepo(PostgresRepo):
         session.close()
 
         return result
+
+    def add_member(self, association_code, member):
+        DBSession = sessionmaker(bind=self.engine)
+        session = DBSession()
+        query = session.query(Association).filter(Association.code == association_code)
+        association = query.first()
+
+        member_data = {
+            "first_name": member.get("first_name"),
+            "last_name": member.get("last_name"),
+            "email": member.get("email"),
+            "phone": member.get("phone"),
+            "active": member.get("active"),
+            "association_id": association.id,
+        }
+        member = Member(**member_data)
+        session.add(member)
+        session.commit()
+
+        session.close()
