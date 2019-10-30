@@ -4,6 +4,10 @@ import pytest
 from asociate.entities.association import Association
 from asociate.entities.member import Member
 
+pytestmark = [
+    pytest.mark.entities,
+]
+
 
 def test_member_init():
     member = Member(

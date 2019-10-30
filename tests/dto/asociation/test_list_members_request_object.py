@@ -1,4 +1,10 @@
+import pytest
+
 from asociate.dto.association import ListMembersRequestObject
+
+pytestmark = [
+    pytest.mark.dto,
+]
 
 
 def test_build_list_members_request_object_with_param():

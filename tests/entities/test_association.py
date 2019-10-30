@@ -3,6 +3,10 @@ import pytest
 
 from asociate.entities.association import Association, Membership
 
+pytestmark = [
+    pytest.mark.entities,
+]
+
 
 def test_association_init():
     code = uuid.uuid4()

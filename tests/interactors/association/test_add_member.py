@@ -1,9 +1,15 @@
+import pytest
+
 from asociate.dto.association import AddMemberRequestObject
 from asociate.interactors.association import AssociationAddMember
 from asociate.repository.exceptions import (
     AssociationNotFoundError,
     InvalidMemberDataError,
 )
+
+pytestmark = [
+    pytest.mark.interactors,
+]
 
 
 def test_association_add_a_member(mocker, association, member):

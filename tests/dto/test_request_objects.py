@@ -1,4 +1,10 @@
+import pytest
+
 from asociate.dto.request import InvalidRequestObject, ValidRequestObject
+
+pytestmark = [
+    pytest.mark.dto,
+]
 
 
 def test_valid_request_object_is_true():

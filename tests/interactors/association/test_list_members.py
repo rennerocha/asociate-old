@@ -1,6 +1,12 @@
-from asociate.dto.association import ListMembersRequestObject 
+import pytest
+
+from asociate.dto.association import ListMembersRequestObject
 from asociate.interactors.association import AssociationListMembers
 from asociate.repository.exceptions import AssociationNotFoundError
+
+pytestmark = [
+    pytest.mark.interactors,
+]
 
 
 def test_association_list_all_members(mocker, association_with_members):

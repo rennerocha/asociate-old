@@ -4,6 +4,10 @@ from asociate.dto.association import ListMembersRequestObject
 from asociate.dto.response import ResponseFailure, ResponseSuccess
 from asociate.repository.exceptions import AssociationNotFoundError
 
+pytestmark = [
+    pytest.mark.web,
+]
+
 
 @mock.patch("asociate.web.association.AssociationListMembers")
 @mock.patch("asociate.web.association.AssociationPostgresRepo")
@@ -59,13 +63,12 @@ def test_request_object_initialisation_and_use(
     mock_interactor().execute.return_value = ResponseSuccess(value=[])
 
     internal_request_object = mock.Mock()
-    request_object_class = \
-        'asociate.web.association.ListMembersRequestObject'
+    request_object_class = "asociate.web.association.ListMembersRequestObject"
     with mock.patch(request_object_class) as mock_request_object:
         mock_request_object.from_dict.return_value = internal_request_object
         client.get(f"/association/{association.code}/members")
 
     mock_request_object.from_dict.assert_called_with(
-        {'association_code': association.code}
+        {"association_code": association.code}
     )
     mock_interactor().execute.assert_called_with(internal_request_object)

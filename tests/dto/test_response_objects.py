@@ -1,5 +1,10 @@
 import pytest
+
 from asociate.dto.response import ResponseFailure, ResponseSuccess
+
+pytestmark = [
+    pytest.mark.dto,
+]
 
 
 @pytest.fixture
