@@ -1,5 +1,7 @@
+import uuid
 import pytest
 
+from asociate.entities.association import Association
 from asociate.entities.member import Member
 
 
@@ -90,3 +92,27 @@ def test_member_comparison():
     member_2 = Member.from_dict(member_dict)
 
     assert member_1 == member_2
+
+
+def test_member_can_join_more_than_one_association(association, member):
+    code = uuid.uuid4()
+    association_1_dict = {
+        "code": code,
+        "name": "Association 1",
+        "slug": "association_1",
+    }
+    association_1 = Association.from_dict(association_1_dict)
+
+    code = uuid.uuid4()
+    association_2_dict = {
+        "code": code,
+        "name": "Association 2",
+        "slug": "association_1",
+    }
+    association_2 = Association.from_dict(association_2_dict)
+
+    member.join(association_1)
+    member.join(association_2)
+
+    assert member in association_1.members
+    assert member in association_2.members
