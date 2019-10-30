@@ -12,7 +12,7 @@ class ListMembersRequestObject:
         if "association_code" not in adict:
             request.add_error(parameter="association_code", message="Required")
 
-        for key, value in adict.items():
+        for key in adict.keys():
             if key != "association_code":
                 request.add_error(parameter=key, message="Unexpected parameter")
 
