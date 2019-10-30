@@ -1,2 +1,6 @@
 class AssociationNotFoundError(Exception):
     ...
+
+
+class InvalidMemberDataError(Exception):
+    ...

@@ -8,7 +8,9 @@ class AssociationListMembers:
 
     def execute(self, request):
         try:
-            return ResponseSuccess(value=self.repo.list_members(request.association_code))
+            return ResponseSuccess(
+                value=self.repo.list_members(request.association_code)
+            )
         except Exception as exc:
             return ResponseFailure(exc)
 
@@ -18,8 +20,10 @@ class AssociationAddMember:
         self.repo = repo
 
     def execute(self, request):
+        from asociate.entities.member import Member
+
         try:
             self.repo.add_member(request.association_code, request.member)
-            return ResponseSuccess()
+            return ResponseSuccess(value=Member.from_dict(request.member))
         except Exception as exc:
             return ResponseFailure(exc)
