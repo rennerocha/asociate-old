@@ -1,7 +1,7 @@
 import uuid
 import pytest
 
-from asociate.entities.association import Association
+from asociate.entities.association import Association, Membership
 
 
 def test_association_init():
@@ -56,3 +56,14 @@ def test_error_if_try_add_not_valid_member(association):
         association.add_as_member("not_a_member_instance")
 
     assert "Expected Member instance." in str(excinfo.value)
+
+
+def test_association_add_new_member_create_new_membership(association, member):
+    association.add_as_member(member)
+    assert len(association.memberships) == 1
+
+    membership = association.memberships.pop()
+
+    assert isinstance(membership, Membership)
+    assert membership.association == association
+    assert membership.member == member

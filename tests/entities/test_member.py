@@ -9,7 +9,6 @@ def test_member_init():
         last_name="Dent",
         email="arthur.dent@deepthought.com",
         phone="912340042",
-        active=False,
     )
     assert member.first_name == "Arthur"
     assert member.last_name == "Dent"
@@ -30,7 +29,6 @@ def test_member_init_from_dict():
     assert member.last_name == "Dent"
     assert member.email == "arthur.dent@deepthought.com"
     assert member.phone == "912340042"
-    assert not member.active
 
 
 def test_member_full_name():
@@ -51,7 +49,6 @@ def test_member_repr():
         last_name="Dent",
         email="arthur.dent@deepthought.com",
         phone="912340042",
-        active=False,
     )
     assert repr(member) == f"<Member: {member.first_name} {member.last_name}>"
 

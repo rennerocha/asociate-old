@@ -1,10 +1,12 @@
+from dataclasses import dataclass
+
+
 class Association:
     def __init__(self, code, name, slug):
         self._code = code
         self.name = name
         self.slug = slug
-
-        self._members = []
+        self.memberships = set()
 
     @classmethod
     def from_dict(cls, data):
@@ -15,7 +17,7 @@ class Association:
 
     @property
     def members(self):
-        return self._members
+        return [membership.member for membership in self.memberships]
 
     @property
     def code(self):
@@ -27,5 +29,12 @@ class Association:
         if not isinstance(member, Member):
             raise ValueError("Expected Member instance.")
 
-        if member not in self._members:
-            self._members.append(member)
+        self.memberships.add(Membership(association=self, member=member))
+
+
+@dataclass(frozen=True)
+class Membership:
+    from asociate.entities.member import Member
+
+    association: Association
+    member: Member
